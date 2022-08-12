@@ -148,6 +148,7 @@ storage/perfschema/gen_pfs_lex_token
 storage/rocksdb/ldb
 storage/rocksdb/mysql_ldb
 storage/rocksdb/sst_dump
+storage/rocksdb/mysql_sst_dump
 storage/rocksdb/unittest/test_properties_collector
 storage/rocksdb/__dev_temp
 support-files/MySQL-shared-compat.spec

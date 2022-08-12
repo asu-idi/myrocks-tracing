@@ -29,4 +29,17 @@ A little bit different than the command in the wiki
 
 
 6.  cap_value_t  not exist
+You will meet this compile error if you haven't install the libcap-dev
+package.
+And if you run cmake before this step, you will need to clean the cmake files and MakeFile to build the Makefile again so that you can compile successfully..
+
+I doubt that  it's because some `#define XX` variables is controlled by 
+cmake and is written into Makefile to control the compile.
 ` sudo apt install libcap-dev`
+
+
+
+7. cmake
+
+8. make -j16
+
