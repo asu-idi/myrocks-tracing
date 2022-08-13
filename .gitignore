@@ -173,3 +173,5 @@ tests/mysql_client_test
 
 # This is where we store plugins for testing purposes
 /lib64/*
+
+test_data/
