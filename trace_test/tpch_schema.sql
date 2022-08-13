@@ -7,16 +7,16 @@
 --  Copyright 2017-2018 MonetDB Solutions B.V.
 
 -- Sccsid:     @(#)dss.ddl	2.1.8.1
-CREATE TABLE NATION  ( N_NATIONKEY  INTEGER NOT NULL,
+CREATE TABLE nation  ( N_NATIONKEY  INTEGER NOT NULL,
                             N_NAME       CHAR(25) NOT NULL,
                             N_REGIONKEY  INTEGER NOT NULL,
                             N_COMMENT    VARCHAR(152));
 
-CREATE TABLE REGION  ( R_REGIONKEY  INTEGER NOT NULL,
+CREATE TABLE region  ( R_REGIONKEY  INTEGER NOT NULL,
                             R_NAME       CHAR(25) NOT NULL,
                             R_COMMENT    VARCHAR(152));
 
-CREATE TABLE PART  ( P_PARTKEY     INTEGER NOT NULL,
+CREATE TABLE part  ( P_PARTKEY     INTEGER NOT NULL,
                           P_NAME        VARCHAR(55) NOT NULL,
                           P_MFGR        CHAR(25) NOT NULL,
                           P_BRAND       CHAR(10) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE PART  ( P_PARTKEY     INTEGER NOT NULL,
                           P_RETAILPRICE DECIMAL(15,2) NOT NULL,
                           P_COMMENT     VARCHAR(23) NOT NULL );
 
-CREATE TABLE SUPPLIER ( S_SUPPKEY     INTEGER NOT NULL,
+CREATE TABLE supplier ( S_SUPPKEY     INTEGER NOT NULL,
                              S_NAME        CHAR(25) NOT NULL,
                              S_ADDRESS     VARCHAR(40) NOT NULL,
                              S_NATIONKEY   INTEGER NOT NULL,
@@ -34,13 +34,13 @@ CREATE TABLE SUPPLIER ( S_SUPPKEY     INTEGER NOT NULL,
                              S_ACCTBAL     DECIMAL(15,2) NOT NULL,
                              S_COMMENT     VARCHAR(101) NOT NULL);
 
-CREATE TABLE PARTSUPP ( PS_PARTKEY     INTEGER NOT NULL,
+CREATE TABLE partsupp ( PS_PARTKEY     INTEGER NOT NULL,
                              PS_SUPPKEY     INTEGER NOT NULL,
                              PS_AVAILQTY    INTEGER NOT NULL,
                              PS_SUPPLYCOST  DECIMAL(15,2)  NOT NULL,
                              PS_COMMENT     VARCHAR(199) NOT NULL );
 
-CREATE TABLE CUSTOMER ( C_CUSTKEY     INTEGER NOT NULL,
+CREATE TABLE customer ( C_CUSTKEY     INTEGER NOT NULL,
                              C_NAME        VARCHAR(25) NOT NULL,
                              C_ADDRESS     VARCHAR(40) NOT NULL,
                              C_NATIONKEY   INTEGER NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE CUSTOMER ( C_CUSTKEY     INTEGER NOT NULL,
                              C_MKTSEGMENT  CHAR(10) NOT NULL,
                              C_COMMENT     VARCHAR(117) NOT NULL);
 
-CREATE TABLE ORDERS  ( O_ORDERKEY       BIGINT NOT NULL,
+CREATE TABLE orders  ( O_ORDERKEY       BIGINT NOT NULL,
                            O_CUSTKEY        INTEGER NOT NULL,
                            O_ORDERSTATUS    CHAR(1) NOT NULL,
                            O_TOTALPRICE     DECIMAL(15,2) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE ORDERS  ( O_ORDERKEY       BIGINT NOT NULL,
                            O_SHIPPRIORITY   INTEGER NOT NULL,
                            O_COMMENT        VARCHAR(79) NOT NULL);
 
-CREATE TABLE LINEITEM ( L_ORDERKEY    BIGINT NOT NULL,
+CREATE TABLE lineitem ( L_ORDERKEY    BIGINT NOT NULL,
                              L_PARTKEY     INTEGER NOT NULL,
                              L_SUPPKEY     INTEGER NOT NULL,
                              L_LINENUMBER  INTEGER NOT NULL,
