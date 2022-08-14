@@ -62,6 +62,54 @@ if ($?) {
 $tables = `mysql -u root -e "use test; show tables;"`;
 print "tables are \n$tables\n";
 
+
+# should load all the tables into the database
+sub generate_load_sqls {
+
+  @match_tbls = `ls /home/bily/tpc-h/TPC-H_Tools_v3.0.0/dbgen/*.tbl`;
+
+# print "@match_tbls";
+  my @base_file = ();
+  foreach (@match_tbls )  {
+   $basename = `basename $_`; 
+   $basename = substr $basename, 0, -5 ;
+   # print "base name is $basename\n";
+   push(@base_file, $basename);
+  }
+
+# print "files are @base_file\n";
+
+
+
+  my @load_sqls = ();
+  $tbl_dir = "/home/bily/tpc-h/TPC-H_Tools_v3.0.0/dbgen";
+  foreach (@base_file) {
+    $file = "$tbl_dir/$_.tbl";
+    $sql = "LOAD DATA LOCAL INFILE '$file' into TABLE $_ FIELDS TERMINATED BY '|';";
+    push(@load_sqls, $sql);
+    # print "$sql\n";
+
+  }
+
+  return @load_sqls;
+
+} 
+@load_sqls = generate_load_sqls();
+foreach (@load_sqls) {
+  print "sql is $_\n";
+  $load_outpt = `mysql -u root -e "SET session rocksdb_bulk_load=1; use test; $_;"`;
+}
+# $load_output = `mysql -u root -e "SET session rocksdb_bulk_load=1; use test; LOAD DATA LOCAL INFILE '~/tpc-h/TPC-H_Tools_v3.0.0/dbgen/lineitem.tbl' INTO TABLE lineitem FIELDS TERMINATED BY '|';"`;
+
+
+$line_count = `mysql -u root -e "use test; select count(*) from lineitem;"`;
+
+print "number of lines is $line_count";
+# print $load_outpt;
+
+
+
+
 print "pid file is $pid_file\n";
 print "server id is $server_pid\n";
 kill 9,$server_pid;
@@ -69,8 +117,3 @@ print "kill server $server_pid seccessfully\n";
 exit;
 
 
-
-$load_output = `mysql -u root -e "use test; LOAD DATA LOCAL INFILE '~/tpc-h/TPC-H_Tools_v3.0.0/dbgen/lineitem.tbl.u1' INTO TABLE LINEITEM FIELDS TERMINATED BY '|';"`;
-
-
-print $load_output;
