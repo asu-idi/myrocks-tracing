@@ -25,34 +25,35 @@ sub shut_server {
 
 
 
-start_server();
+# start_server();
 
 $start_query = @ARGV[0];
 $end_query = @ARGV[1];
 # run all the queries
-system("sleep 5");
+# system("sleep 5");
 $start_time = time();
 
-$tbl_dir = "/home/bily/tpc-h/TPC-H_Tools_v3.0.0/dbgen";
-$sql_dir = "$tbl_dir/queries";
+# $tbl_dir = "/home/bily/tpc-h/TPC-H_Tools_v3.0.0/dbgen";
+# $sql_dir = "$tbl_dir/queries";
 
-@sql_files = `ls $sql_dir`;
+# @sql_files = `ls $sql_dir`;
 
-$qgen_exe = "$tbl_dir/qgen";
-
-
-print "start:$start_query, end:$end_query \n";
+# $qgen_exe = "$tbl_dir/qgen";
 
 
-for ($i=$start_query; $i <= $end_query ; $i++) {
- $sql = `DSS_CONFIG=$tbl_dir DSS_QUERY=$tbl_dir/queries $qgen_exe -d -c $i`;
- # print  "sql is \n $sql\n";
- # $cmd =  "mysql -u root -e 'use test; $sql;'";
- print "$cmd\n";
- `mysql -u root -e "use test; $sql"`;
- # `$cmd`;
+# print "start:$start_query, end:$end_query \n";
 
-}
+
+# for ($i=$start_query; $i <= $end_query ; $i++) {
+#  $sql = `DSS_CONFIG=$tbl_dir DSS_QUERY=$tbl_dir/queries $qgen_exe -d -c $i`;
+#  # print  "sql is \n $sql\n";
+#  $cmd =  "mysql -u root -e \"use test; $sql;\"";
+#  print "$cmd\n";
+#  `$cmd`;
+#  # `mysql -u root -e "use test; $sql"`;
+#  # `$cmd`;
+
+# }
 # $all_sqls = `DSS_CONFIG=$tbl_dir DSS_QUERY=$tbl_dir/queries $qgen_exe -d -c 1`;
 # print "$all_sqls\n";
 
@@ -70,7 +71,19 @@ for ($i=$start_query; $i <= $end_query ; $i++) {
 # }
 
 # @sql_files = `ls $tbl_dir`
+$sql_queries_dir = "/home/bily/mysql-5.6/queries-tpch-dbgen-mysql" ;
 
+@sql_files  =  `ls $sql_queries_dir/*.sql`;
+
+foreach (@sql_files) {
+  chomp($_);
+  $cur_q_start = time();
+  $q_res = `mysql -u root test < $_`;
+  $cur_q_end = time();
+  $cur_elapse = $cur_q_end - $cur_q_start;
+  print "query result is $q_res\n";
+  print "time for $_ is $cur_elapse";
+}
 
 $end_time = time();
 
@@ -80,5 +93,5 @@ $time_elapse = $end_time - $start_time;
 print "time used for all query is $time_elapse s \n";
 
 
-shut_server();
+# shut_server();
 
