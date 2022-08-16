@@ -6,3 +6,7 @@
 [submodule "rqg"]
 	path = rqg
 	url = https://github.com/yoshinorim/rqg.git
+
+[submodule "queries-tpch-dbgen-mysql"]
+  path  = queries-tpch-dbgen-mysql
+  url = https://github.com/catarinaribeir0/queries-tpch-dbgen-mysql.git
