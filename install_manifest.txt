@@ -13922,11 +13922,13 @@
 /usr/local/mysql/sql-bench/limits/solid-nt4.cfg
 /usr/local/mysql/sql-bench/limits/mysql-3.23.cfg
 /usr/local/mysql/sql-bench/limits/access_odbc.cfg
+/usr/local/mysql/sql-bench/CTestTestfile.cmake
 /usr/local/mysql/sql-bench/README
 /usr/local/mysql/sql-bench/bench-count-distinct
 /usr/local/mysql/sql-bench/bench-count-distinct
 /usr/local/mysql/sql-bench/bench-init.pl
 /usr/local/mysql/sql-bench/bench-init.pl
+/usr/local/mysql/sql-bench/cmake_install.cmake
 /usr/local/mysql/sql-bench/compare-results
 /usr/local/mysql/sql-bench/compare-results
 /usr/local/mysql/sql-bench/copy-db

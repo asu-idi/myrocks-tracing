@@ -25,7 +25,7 @@ $default_file = "$dir_path/my.cnf";
 $mysql_install_exe = "/usr/local/mysql/scripts/mysql_install_db";
 $mysql_install_dir = "/usr/local/mysql";
 
-$db_dir =  "$dir_path/test_data";
+$db_dir =  "/home/bily/mysql-5.6/test_data";
 
 `rm -rf $db_dir`;
 

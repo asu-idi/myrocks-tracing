@@ -14,6 +14,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
 
+// #include "rdb_utils.h"
 #ifdef USE_PRAGMA_IMPLEMENTATION
 #pragma implementation  // gcc: Class implementation
 #endif
@@ -5618,6 +5619,98 @@ void rocksdb_truncation_table_cleanup(void) {
   }
 }
 
+
+static rocksdb::Status  StartAllTrace(rocksdb::StackableDB** dbptr) {
+    // run phase
+  rocksdb::StackableDB* db = *dbptr;
+  if(db == nullptr) {
+    printf("db is nullptr\n");
+    return rocksdb::Status::IOError("");    
+  }
+
+  sql_print_information("RocksDB:: db not null");
+  rocksdb::TraceOptions trace_options;
+  rocksdb::TraceOptions block_cache_trace_options;
+  rocksdb::TraceOptions io_trace_options;
+  std::string op_trace_file  = "/tmp/op_trace_file";
+  std::string block_cache_trace_file = "/tmp/block_cache_trace_file";
+  std::string io_trace_file = "/tmp/io_trace_file";
+
+  rocksdb::Env* env = rocksdb::Env::Default();
+
+
+
+  rocksdb::Status s;
+  if (op_trace_file != "") {
+    std::unique_ptr<rocksdb::TraceWriter> trace_writer;
+    sql_print_information("RocksDB: before newfiletracewriter");
+    s = rocksdb::NewFileTraceWriter(env, rocksdb::EnvOptions(),
+                                    op_trace_file, &trace_writer);
+    sql_print_information("RocksDB: after newfiletracewriter");
+    if (!s.ok()) {
+      fprintf(stderr, "Encountered an error starting a trace, %s\n",
+              s.ToString().c_str());
+      return s;
+    }
+    sql_print_information("RocksDB: before start trace");
+    s = db->StartTrace(trace_options, std::move(trace_writer));
+    sql_print_information("RocksDB: after start trace");
+    if (!s.ok()) {
+      fprintf(stderr, "Encountered an error starting a trace %s\n",
+              s.ToString().c_str());
+      return s;
+    }
+
+    fprintf(stdout, "Tracing the workload to [%s]\n", op_trace_file.c_str());
+  }
+
+  if (block_cache_trace_file != "") {
+    std::unique_ptr<rocksdb::TraceWriter> trace_writer;
+    s = rocksdb::NewFileTraceWriter(env, rocksdb::EnvOptions(),
+                                    block_cache_trace_file,
+                                    &trace_writer);
+    if (!s.ok()) {
+      fprintf(stderr, "Error encoutnered starting block cache trace, %s\n",
+              s.ToString().c_str());
+    }
+    s = db->StartBlockCacheTrace(block_cache_trace_options,
+                                 std::move(trace_writer));
+    if (!s.ok()) {
+      fprintf(stderr, "Error encoutnered starting block cache trace, %s\n",
+              s.ToString().c_str());
+    }
+    fprintf(stdout, "block cache trace workload to [%s]\n",
+            block_cache_trace_file.c_str());
+  }
+
+  if (io_trace_file != "") {
+    std::unique_ptr<rocksdb::TraceWriter> trace_writer;
+    s = rocksdb::NewFileTraceWriter(env, rocksdb::EnvOptions(),
+                                    io_trace_file, &trace_writer);
+
+    if (!s.ok()) {
+      fprintf(stderr, "Error encountered at starting io trace %s\n",
+              s.ToString().c_str());
+      return s;
+    }
+    s = db->StartIOTrace(io_trace_options, std::move(trace_writer));
+
+    if (!s.ok()) {
+      fprintf(stderr, "Error encountered at starting io trace %s\n",
+              s.ToString().c_str());
+      return s;
+    }
+    fprintf(stdout, "writing io trace data to [%s]\n",
+            io_trace_file.c_str());
+  }
+
+
+  return s;
+}
+
+
+
+
 /*
   Storage Engine initialization function, invoked when plugin is loaded.
 */
@@ -6022,6 +6115,12 @@ static int rocksdb_init_func(void *const p) {
     rdb_log_status_error(status, "Error opening instance");
     DBUG_RETURN(HA_EXIT_FAILURE);
   }
+  // status = StartAllTrace((rocksdb::StackableDB**)rdb);
+  if(!status.ok()) {
+    rdb_log_status_error(status, "Error start tracing");
+    DBUG_RETURN(HA_EXIT_FAILURE);
+  } 
+  sql_print_information("RocksDB: Start Tracing");
   cf_manager.init(std::move(cf_options_map), &cf_handles);
 
   // NO_LINT_DEBUG
