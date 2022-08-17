@@ -1,6 +1,7 @@
 [submodule "rocksdb"]
 	path = rocksdb
-	url = https://github.com/facebook/rocksdb.git
+  url = https://github.com/asu-idi/myrocks-tracing.git
+	; url = https://github.com/facebook/rocksdb.git
 
 [submodule "rqg"]
 	path = rqg
