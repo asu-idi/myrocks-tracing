@@ -16,10 +16,10 @@
 
 # This script merges many static libraries into
 # one big library on Unix.
-SET(TARGET_LOCATION "/home/bily/mysql-5.6/libmysql/libfbmysqlclient.a")
+SET(TARGET_LOCATION "/home/bily/myrocks-tracing/libmysql/libfbmysqlclient.a")
 SET(TARGET "fbmysqlclient")
-SET(STATIC_LIBS "/home/bily/mysql-5.6/libmysql/libclientlib.a;/home/bily/mysql-5.6/dbug/libdbug.a;/home/bily/mysql-5.6/strings/libstrings.a;/home/bily/mysql-5.6/vio/libvio.a;/home/bily/mysql-5.6/mysys/libmysys.a;/home/bily/mysql-5.6/mysys_ssl/libmysys_ssl.a")
-SET(CMAKE_CURRENT_BINARY_DIR "/home/bily/mysql-5.6/libmysql")
+SET(STATIC_LIBS "/home/bily/myrocks-tracing/libmysql/libclientlib.a;/home/bily/myrocks-tracing/dbug/libdbug.a;/home/bily/myrocks-tracing/strings/libstrings.a;/home/bily/myrocks-tracing/vio/libvio.a;/home/bily/myrocks-tracing/mysys/libmysys.a;/home/bily/myrocks-tracing/mysys_ssl/libmysys_ssl.a")
+SET(CMAKE_CURRENT_BINARY_DIR "/home/bily/myrocks-tracing/libmysql")
 SET(CMAKE_AR "/usr/bin/ar")
 SET(CMAKE_RANLIB "/usr/bin/ranlib")
 

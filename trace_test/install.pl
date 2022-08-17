@@ -4,12 +4,28 @@
 
 
 #install db 
+sub get_dir {
+  use Cwd 'abs_path';
+  use File::Basename;
 
-$default_file = "/home/bily/mysql-5.6/trace_test/my.cnf";
+  my $abs_path = abs_path(__FILE__);
+  # print "abs path $abs_path\n";
+
+
+  ($name, $path, $suffix) = fileparse($abs_path, @suffixlist);
+  # print "$name \n $path \n ";
+  return $path;
+
+
+}
+
+$dir_path = get_dir();
+
+$default_file = "$dir_path/my.cnf";
 $mysql_install_exe = "/usr/local/mysql/scripts/mysql_install_db";
 $mysql_install_dir = "/usr/local/mysql";
 
-$db_dir =  "/home/bily/mysql-5.6/test_data";
+$db_dir =  "$dir_path/test_data";
 
 `rm -rf $db_dir`;
 
