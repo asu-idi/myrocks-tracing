@@ -105,8 +105,8 @@ foreach (@load_sqls) {
 }
 # $load_output = `mysql -u root -e "SET session rocksdb_bulk_load=1; use test; LOAD DATA LOCAL INFILE '~/tpc-h/TPC-H_Tools_v3.0.0/dbgen/lineitem.tbl' INTO TABLE lineitem FIELDS TERMINATED BY '|';"`;
 
-$alter_res = `mysql -u root test < tpch_mysql_schema_alter.sql`;
-print "aterl result is $alter_res\n";
+# $alter_res = `mysql -u root test < tpch_mysql_schema_alter.sql`;
+# print "aterl result is $alter_res\n";
 
 $line_count = `mysql -u root -e "use test; select count(*) from LINEITEM;"`;
 

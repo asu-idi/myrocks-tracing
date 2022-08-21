@@ -6390,6 +6390,7 @@ static int rocksdb_done_func(void *const p) {
 
   delete rdb;
   rdb = nullptr;
+  sql_print_information("Rocksdb: DB instance closed");
 
   delete commit_latency_stats;
   commit_latency_stats = nullptr;

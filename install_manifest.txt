@@ -13851,6 +13851,7 @@
 /usr/local/mysql/mysql-test/./collections/disabled-weekly.list
 /usr/local/mysql/mysql-test/./collections/README
 /usr/local/mysql/mysql-test/./collections/default.weekly.basic
+/usr/local/mysql/mysql-test/./var
 /usr/local/mysql/mysql-test/./mysql-test-run.pl
 /usr/local/mysql/mysql-test/./README
 /usr/local/mysql/mysql-test/mtr

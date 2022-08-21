@@ -10,6 +10,6 @@ $pid = `cat $pid_file`;
 chomp($pid);
 
 
-kill 9,$pid;
+kill 15,$pid;
 
 
