@@ -1,6 +1,14 @@
 
 sysbench_dir="/home/bily/sysbench/sysbench/src/lua"
 
+
+# pushd $sysbench_dir 
+
+
+# lua_file=`ls  | grep 'oltp.*lua'`
+
+# popd
+
 ./install.pl
 
 
@@ -11,9 +19,14 @@ pushd $sysbench_dir
 sleep 3
 
 
+# while read -r file; do 
+
+
+# done <<< ""
+
 sysbench ./oltp_read_write.lua --mysql-port=3306 \
   --mysql-user=root --mysql-db=test \
-  --tables=4 --table_size=1000000 \
+  --tables=8 --table_size=1000000 \
   --mysql_storage_engine=rocksdb \
   --mysql-socket=/tmp/mysql.sock \
   --threads=64 prepare
@@ -21,11 +34,11 @@ sysbench ./oltp_read_write.lua --mysql-port=3306 \
 
 sysbench ./oltp_read_write.lua --mysql-port=3306 \
   --mysql-user=root --mysql-db=test \
-  --tables=4 --table_size=1000000 \
+  --tables=8 --table_size=1000000 \
   --mysql_storage_engine=rocksdb \
   --mysql-socket=/tmp/mysql.sock \
   --report-interval=3 \
-  --time=60 \
+  --time=600 \
   --threads=64 run
 popd
 
