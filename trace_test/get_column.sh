@@ -1,9 +1,9 @@
 
 
-op_file="/tmp/trace_data_dir/op_trace-human_readable_trace.txt"
+op_file="/tmp/trace_data_dir/op_trace_human_keys_remap.txt"
 op_get_file="/tmp/trace_data_dir/op_get_row.txt"
 
-awk '{if($2 == 0) {print}}' $op_file > $op_get_file
+awk '{if($3 == 0) {print}}' $op_file > $op_get_file
 
 # we don't have latency data for op get
 # we only get the timestamp of it.

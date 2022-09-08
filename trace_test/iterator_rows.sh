@@ -4,7 +4,7 @@
 
 
 
-op_file="/tmp/trace_data_dir/op_trace-human_readable_trace.txt"
+op_file="/tmp/trace_data_dir/op_trace_human_keys_remap.txt"
 
 
 block_cache_file="/tmp/trace_data_dir/block_trace_human_file"
@@ -27,7 +27,7 @@ io_type=${6:-"9"}
 
 
 # iterator op : 6
-awk -v op_type="$op_type" '{if($2 == op_type) {print}}' $op_file > $op_out
+awk -v op_type="$op_type" '{if($3 == op_type) {print}}' $op_file > $op_out
 
 echo "op done"
 

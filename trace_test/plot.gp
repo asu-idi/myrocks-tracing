@@ -25,6 +25,7 @@ print("op file".op_file)
 set terminal  png size 800, 400
 
 set output output_file
+print("output file is".output_file)
 set xlabel "time(ms)"
 
 set y2tics
@@ -37,18 +38,18 @@ set key left
 set size 1, 0.5
 set origin 0, 0
 
-#set y2range [-1:2]
+set y2range [-1:2]
 plot io_file using 1:17 title "io file latency" w dots, \
- block_file using 1:2 title "block id" w dots axes x1y2
+ block_file using 1:14 title "block cache hit" w dots axes x1y2
 
 set key left
 set size 1, 0.5
 set origin 0.0, 0.5
 
 
-#set y2range [-1:2]
-plot op_file using  5:1 title "op keys  " w dots, \
- block_file using 1:2 title "block id" w dots axes x1y2
+set y2range [-1:2]
+plot op_file using  6:1 title "op keys  " w dots, \
+ block_file using 1:14 title "block cache hit" w dots axes x1y2
 
 unset multiplot
 

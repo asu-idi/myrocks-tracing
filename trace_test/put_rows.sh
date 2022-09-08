@@ -3,7 +3,7 @@
 
 
 
-op_file=${1:-"/tmp/trace_data_dir/op_trace-human_readable_trace.txt"}
+op_file=${1:-"/tmp/trace_data_dir/op_trace_human_keys_remap.txt"}
 
 block_file=${2:-"/tmp/trace_data_dir/block_trace_human_file"}
 
@@ -18,7 +18,7 @@ block_compaction_file="/tmp/trace_data_dir/block_compact.txt"
 io_append_file="/tmp/trace_data_dir/io_put.txt"
 
 
-awk '{if($2 == 1) {print}}' $op_file > $put_op_file
+awk '{if($3 == 1) {print}}' $op_file > $put_op_file
 
 echo "op done"
 
