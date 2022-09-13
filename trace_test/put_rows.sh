@@ -32,6 +32,6 @@ awk '{if($2 == 1)  {print}}' $io_file > $io_append_file
 echo "io done"
 
 
-
+# cache miss ? 
 
 
